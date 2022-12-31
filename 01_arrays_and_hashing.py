@@ -35,11 +35,25 @@ class Solution:
 
         return True
 
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        """
+        1. Two Sum - return indices!
+        """
+        seen = {}
+        for i in range(len(nums)):
+            need = target - nums[i]
+            if need in seen:
+                return [i, seen[need]]
+            else:
+                seen[nums[i]] = i
+
 
 if __name__ == "__main__":
     s = Solution()
 
     # print(s.containsDuplicate([1, 2, 3, 1]))
 
-    print(s.isAnagram("anagram", "nagaram"))
-    print(s.isAnagram("rat", "car"))
+    # print(s.isAnagram("anagram", "nagaram"))
+    # print(s.isAnagram("rat", "car"))
+
+    # print(s.twoSum([2, 7, 11, 15], 9))
