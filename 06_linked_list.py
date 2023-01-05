@@ -35,6 +35,23 @@ class Solution:
 
         return prev
 
+    # recursive solution
+    def reverseListRecursive(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def reverse(curr: ListNode, prev: ListNode):
+            if curr is None:
+                return prev
+            else:
+                """
+                        1 -> 2 -> 3 -> 4 -> 5 -> None
+                None <- 1 -> 2 -> 3 -> 4 -> 5 -> None
+                prev  curr  next
+                """
+                next = curr.next
+                curr.next = prev
+                return reverse(next, curr)
+
+        return reverse(head, None)
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -47,6 +64,10 @@ if __name__ == "__main__":
         nodes.append(ListNode(head[i]))
         nodes[i - 1].next = nodes[i]
 
-    # print(nodes[0], nodes[0].next)
-    rev = s.reverseList(nodes[0])
+    # # iterative
+    # rev = s.reverseList(nodes[0])
+    # print(rev, rev.next)
+
+    # recursive
+    rev = s.reverseListRecursive(nodes[0])
     print(rev, rev.next)
