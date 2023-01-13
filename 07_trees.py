@@ -21,6 +21,16 @@ class Solution:
         root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         return root
 
+    def maxDepth_recursive(self, root: Optional[TreeNode]) -> int:
+        """
+        104. Maximum Depth of Binary Tree
+        """
+        if not root:
+            return 0
+        return 1 + max(
+            self.maxDepth_recursive(root.left), self.maxDepth_recursive(root.right)
+        )
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -37,4 +47,6 @@ if __name__ == "__main__":
     n6, n9 = TreeNode(6), TreeNode(9)
     n7.left, n7.right = n6, n6
 
-    print(s.invertTree(n4))
+    # print(s.invertTree(n4))
+
+    print(s.maxDepth_recursive(n4))
