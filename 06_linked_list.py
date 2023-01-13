@@ -52,22 +52,85 @@ class Solution:
 
         return reverse(head, None)
 
+    def mergeTwoLists(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        """
+        21. Merge Two Sorted Lists
+
+        tail
+        dummy -> null
+
+                tail
+        dummy -> 1 -> null      l1: 2 -> 4 -> null
+
+                     tail
+        dummy -> 1 -> 1 -> null     l2: 3 -> 4 -> null
+
+                          tail
+        dummy -> 1 -> 1 -> 2 -> null        l1: 4 -> null
+
+        ...
+
+        return dummy.next
+        """
+        dummy = ListNode()
+        tail = dummy
+
+        while list1 and list2:
+            if list1.val <= list2.val:
+                tail.next = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+            tail = tail.next
+
+        if list1:
+            tail.next = list1
+        elif list2:
+            tail.next = list2
+
+        return dummy.next
+
 
 if __name__ == "__main__":
     s = Solution()
 
-    head = [1, 2, 3, 4, 5]
+    # head = [1, 2, 3, 4, 5]
 
-    nodes = []
-    nodes.append(ListNode(head[0]))
-    for i in range(1, len(head)):
-        nodes.append(ListNode(head[i]))
-        nodes[i - 1].next = nodes[i]
+    # nodes = []
+    # nodes.append(ListNode(head[0]))
+    # for i in range(1, len(head)):
+    #     nodes.append(ListNode(head[i]))
+    #     nodes[i - 1].next = nodes[i]
 
-    # # iterative
-    # rev = s.reverseList(nodes[0])
+    # # # iterative
+    # # rev = s.reverseList(nodes[0])
+    # # print(rev, rev.next)
+
+    # # recursive
+    # rev = s.reverseListRecursive(nodes[0])
     # print(rev, rev.next)
 
-    # recursive
-    rev = s.reverseListRecursive(nodes[0])
-    print(rev, rev.next)
+    l1 = [1, 2, 4]
+    l2 = [1, 3, 4]
+
+    nodes1, nodes2 = [], []
+
+    nodes1.append(ListNode(l1[0]))
+    for i in range(1, len(l1)):
+        nodes1.append(ListNode(l1[i]))
+        nodes1[i - 1].next = nodes1[i]
+
+    nodes2.append(ListNode(l2[0]))
+    for i in range(1, len(l2)):
+        nodes2.append(ListNode(l2[i]))
+        nodes2[i - 1].next = nodes2[i]
+
+    print(nodes1, nodes2)
+
+    r = s.mergeTwoLists(nodes1[0], nodes2[0])
+    while r:
+        print(r)
+        r = r.next
