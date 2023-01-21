@@ -1,4 +1,5 @@
 from typing import List, Optional
+from collections import deque
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -8,7 +9,7 @@ class TreeNode:
         self.right = right
 
     def __repr__(self) -> str:
-        return f"{self.val} ({self.left.val}) ({self.right.val})"
+        return f"{self.val}"
 
 
 class Solution:
@@ -31,6 +32,40 @@ class Solution:
             self.maxDepth_recursive(root.left), self.maxDepth_recursive(root.right)
         )
 
+    def maxDepth_deque(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        level = 0
+        q = deque([root])
+        while q:
+
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.right:
+                    q.append(node.right)
+                if node.left:
+                    q.append(node.left)
+
+            level += 1
+        return level
+
+    def maxDepth_stack(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        stack = [[root, 1]]
+        max_level = 1
+
+        while stack:
+            node, depth = stack.pop()
+
+            if node:
+                max_level = max(max_level, depth)
+                stack.append([node.left, depth + 1])
+                stack.append([node.right, depth + 1])
+
+        return max_level
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -45,8 +80,10 @@ if __name__ == "__main__":
     n2.left, n2.right = n1, n3
 
     n6, n9 = TreeNode(6), TreeNode(9)
-    n7.left, n7.right = n6, n6
+    n7.left, n7.right = n6, n9
 
     # print(s.invertTree(n4))
 
     print(s.maxDepth_recursive(n4))
+    print(s.maxDepth_deque(n4))
+    print(s.maxDepth_stack(n4))
