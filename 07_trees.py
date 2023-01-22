@@ -108,6 +108,16 @@ class Solution:
         maxDepth(root)
         return balanced
 
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        """
+        100. Same Tree
+        """
+        if not p and not q:
+            return True
+        elif (not p or not q) or (p.val != q.val):
+            return False
+        return (self.isSameTree(p.left, q.left)) and (self.isSameTree(p.right, q.right))
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -130,4 +140,5 @@ if __name__ == "__main__":
     # print(s.maxDepth_deque(n4))
     # print(s.maxDepth_stack(n4))
     # print(s.diameterOfBinaryTree(n4))
-    print(s.isBalanced(n4))
+    # print(s.isBalanced(n4))
+    print(s.isSameTree(n4, n4))
