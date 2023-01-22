@@ -89,6 +89,25 @@ class Solution:
 
         return diameter
 
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        """
+        110. Balanced Binary Tree
+        """
+        balanced = True
+
+        def maxDepth(node: Optional[TreeNode]) -> bool:
+            nonlocal balanced
+            if not node:
+                return 0
+            left_depth = maxDepth(node.left)
+            right_depth = maxDepth(node.right)
+            if abs(left_depth - right_depth) > 1:
+                balanced = False
+            return 1 + max(left_depth, right_depth)
+
+        maxDepth(root)
+        return balanced
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -110,5 +129,5 @@ if __name__ == "__main__":
     # print(s.maxDepth_recursive(n4))
     # print(s.maxDepth_deque(n4))
     # print(s.maxDepth_stack(n4))
-
-    print(s.diameterOfBinaryTree(n4))
+    # print(s.diameterOfBinaryTree(n4))
+    print(s.isBalanced(n4))
