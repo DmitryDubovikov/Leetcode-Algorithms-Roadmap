@@ -118,6 +118,30 @@ class Solution:
             return False
         return (self.isSameTree(p.left, q.left)) and (self.isSameTree(p.right, q.right))
 
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        """
+        572. Subtree of Another Tree
+        """
+
+        def sameTree(self, t1: Optional[TreeNode], t2: Optional[TreeNode]) -> bool:
+            if not t1 and not t2:
+                return True
+            elif (not t1 or not t2) or (t1.val != t2.val):
+                return False
+            return sameTree(self, t1.left, t2.left) and sameTree(
+                self, t1.right, t2.right
+            )
+
+        if not subRoot:
+            return True
+        elif not root:
+            return False
+
+        if sameTree(self, root, subRoot):
+            return True
+
+        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+
 
 if __name__ == "__main__":
     s = Solution()
