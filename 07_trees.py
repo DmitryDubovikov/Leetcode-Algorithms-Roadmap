@@ -66,6 +66,29 @@ class Solution:
 
         return max_level
 
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        """
+        543. Diameter of Binary Tree
+        """
+
+        diameter = 0
+
+        def dfs(root):
+            nonlocal diameter
+
+            if not root:
+                return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
+
+            diameter = max(diameter, left + right)
+
+            return max(left, right) + 1
+
+        dfs(root)
+
+        return diameter
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -84,6 +107,8 @@ if __name__ == "__main__":
 
     # print(s.invertTree(n4))
 
-    print(s.maxDepth_recursive(n4))
-    print(s.maxDepth_deque(n4))
-    print(s.maxDepth_stack(n4))
+    # print(s.maxDepth_recursive(n4))
+    # print(s.maxDepth_deque(n4))
+    # print(s.maxDepth_stack(n4))
+
+    print(s.diameterOfBinaryTree(n4))
