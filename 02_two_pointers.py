@@ -22,11 +22,29 @@ class Solution:
 
         return True
 
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        """
+        167. Two Sum II - Input Array Is Sorted
+        """
+        l, r = 0, len(numbers) - 1
+        while l < r:
+            if numbers[l] + numbers[r] < target:
+                l += 1
+            elif numbers[l] + numbers[r] > target:
+                r -= 1
+            else:
+                return [l + 1, r + 1]
+        return [l + 1, r + 1]
+
 
 if __name__ == "__main__":
     s = Solution()
 
-    print(s.isPalindrome("A man, a plan, a canal: Panama"))
-    print(s.isPalindrome("race a car"))
-    print(s.isPalindrome("0P"))
-    print(s.isPalindrome(" "))
+    # print(s.isPalindrome("A man, a plan, a canal: Panama"))
+    # print(s.isPalindrome("race a car"))
+    # print(s.isPalindrome("0P"))
+    # print(s.isPalindrome(" "))
+
+    numbers = [2, 7, 11, 15]
+    target = 9
+    print(s.twoSum(numbers, target))
