@@ -93,6 +93,20 @@ class Solution:
 
         return dummy.next
 
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        """
+        141. Linked List Cycle
+        """
+        slow, fast = head, head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+
+        return False
+
 
 if __name__ == "__main__":
     s = Solution()
@@ -113,24 +127,35 @@ if __name__ == "__main__":
     # rev = s.reverseListRecursive(nodes[0])
     # print(rev, rev.next)
 
-    l1 = [1, 2, 4]
-    l2 = [1, 3, 4]
+    # l1 = [1, 2, 4]
+    # l2 = [1, 3, 4]
 
-    nodes1, nodes2 = [], []
+    # nodes1, nodes2 = [], []
 
-    nodes1.append(ListNode(l1[0]))
-    for i in range(1, len(l1)):
-        nodes1.append(ListNode(l1[i]))
-        nodes1[i - 1].next = nodes1[i]
+    # nodes1.append(ListNode(l1[0]))
+    # for i in range(1, len(l1)):
+    #     nodes1.append(ListNode(l1[i]))
+    #     nodes1[i - 1].next = nodes1[i]
 
-    nodes2.append(ListNode(l2[0]))
-    for i in range(1, len(l2)):
-        nodes2.append(ListNode(l2[i]))
-        nodes2[i - 1].next = nodes2[i]
+    # nodes2.append(ListNode(l2[0]))
+    # for i in range(1, len(l2)):
+    #     nodes2.append(ListNode(l2[i]))
+    #     nodes2[i - 1].next = nodes2[i]
 
-    print(nodes1, nodes2)
+    # print(nodes1, nodes2)
 
-    r = s.mergeTwoLists(nodes1[0], nodes2[0])
-    while r:
-        print(r)
-        r = r.next
+    # r = s.mergeTwoLists(nodes1[0], nodes2[0])
+    # while r:
+    #     print(r)
+    #     r = r.next
+
+    head = [1, 2, 3, 4, 5]
+
+    nodes = []
+    nodes.append(ListNode(head[0]))
+    for i in range(1, len(head)):
+        nodes.append(ListNode(head[i]))
+        nodes[i - 1].next = nodes[i]
+
+    nodes[-1].next = nodes[1]
+    print(s.hasCycle(nodes[0]))
